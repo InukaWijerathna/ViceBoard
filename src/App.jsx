@@ -25,11 +25,8 @@ function App() {
               <VLogo />
               <div className="hidden md:block">
                 <h1 className="text-xl font-header italic font-extrabold tracking-tighter leading-none text-flamingo">
-                  VICE-BOARD
+                  VICEBOARD
                 </h1>
-                <p className="text-[10px] font-mono uppercase tracking-[0.3em] opacity-80">
-                  Advanced Digital Dashboard
-                </p>
               </div>
             </div>
 
@@ -66,8 +63,18 @@ function App() {
         </main>
 
         {/* Footer */}
-        <footer className="py-12 border-t border-charcoal/5 font-mono text-[10px] tracking-widest text-charcoal/60 text-center">
-          &copy; {new Date().getFullYear()} VICE-BOARD DATA SYSTEMS // TERMINAL 4.0.0
+        <footer className="py-12 border-t border-charcoal/5 font-mono text-[10px] tracking-widest text-charcoal/60 text-center max-w-7xl mx-auto px-6">
+          <div className="space-y-4">
+            <p className="max-w-2xl mx-auto leading-relaxed">
+              This project is a non-commercial fan tribute to the aesthetic and spirit of Miami Vice. 
+              All rights to the original series belong to NBCUniversal. Created for educational and design exploration purposes.
+            </p>
+            <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4 pt-4 opacity-70">
+              <span>&copy; {new Date().getFullYear()} <span className="text-flamingo font-bold italic">@InukaWijerathna</span></span>
+              <span className="hidden md:inline">//</span>
+              <span>TERMINAL 4.0.0</span>
+            </div>
+          </div>
         </footer>
 
         {/* Background Decor */}

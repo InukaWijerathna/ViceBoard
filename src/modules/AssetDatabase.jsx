@@ -6,10 +6,38 @@ import useStore from '../store/useStore';
 const AssetDatabase = () => {
   const { heatLevel } = useStore();
   const [assets, setAssets] = useState([
-    { id: 1, name: 'White Ferrari Testarossa', value: '$180,000', heat: 8, status: 'Active' },
-    { id: 2, name: 'Scarab Speedboat', value: '$240,000', heat: 5, status: 'Active' },
-    { id: 3, name: 'Brickell Safehouse', value: '$1,200,000', heat: 2, status: 'Active' },
-    { id: 4, name: 'Ocean Drive Loft', value: '$850,000', heat: 4, status: 'Seized' },
+    {
+      id: 1,
+      name: 'White Ferrari Testarossa',
+      value: '$180,000',
+      heat: 8,
+      status: 'Active',
+      image: '/asset_ferrari.png',
+    },
+    {
+      id: 2,
+      name: 'Scarab Speedboat',
+      value: '$240,000',
+      heat: 5,
+      status: 'Active',
+      image: '/asset_speedboat.png',
+    },
+    {
+      id: 3,
+      name: 'Brickell Safehouse',
+      value: '$1,200,000',
+      heat: 2,
+      status: 'Active',
+      image: '/asset_safehouse.png',
+    },
+    {
+      id: 4,
+      name: 'Ocean Drive Loft',
+      value: '$850,000',
+      heat: 4,
+      status: 'Seized',
+      image: '/asset_loft.png',
+    },
   ]);
 
   const removeAsset = (id) => {
@@ -39,43 +67,66 @@ const AssetDatabase = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ delay: index * 0.1 }}
-              className="glass-card p-4 relative overflow-hidden group"
+              className="glass-card relative overflow-hidden group flex flex-col"
             >
-              <div 
-                className="absolute top-0 left-0 h-1 transition-all duration-500"
-                style={{ 
-                  width: `${asset.heat * 10}%`, 
-                  backgroundColor: asset.heat > 7 ? '#FF007F' : '#00FFFF' 
+              {/* Heat bar */}
+              <div
+                className="absolute top-0 left-0 h-1 z-10 transition-all duration-500"
+                style={{
+                  width: `${asset.heat * 10}%`,
+                  backgroundColor: asset.heat > 7 ? '#FF007F' : '#00FFFF',
                 }}
               />
 
-              <div className="flex justify-between items-start mb-4">
-                <Box className={`w-5 h-5 ${asset.status === 'Seized' ? 'text-red-500' : 'text-flamingo'}`} />
-                <button 
-                  onClick={() => removeAsset(asset.id)}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-charcoal/5 rounded"
+              {/* Image thumbnail */}
+              <div className="relative h-40 overflow-hidden flex-shrink-0">
+                <img
+                  src={asset.image}
+                  alt={asset.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  style={{
+                    filter: asset.status === 'Seized' ? 'grayscale(60%) brightness(0.75)' : 'brightness(0.85)',
+                  }}
+                />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                {/* Status badge over image */}
+                <span
+                  className={`absolute bottom-2 right-2 px-2 py-0.5 rounded text-[10px] font-mono font-bold tracking-widest z-10 ${
+                    asset.status === 'Seized'
+                      ? 'bg-red-500/80 text-white'
+                      : 'bg-flamingo/80 text-white'
+                  }`}
                 >
-                  <Trash2 size={14} className="text-charcoal/40" />
-                </button>
-              </div>
-
-              <div className="space-y-1">
-                <h3 className="font-header font-bold italic text-lg leading-tight uppercase group-hover:text-flamingo transition-colors text-charcoal">
-                  {asset.name}
-                </h3>
-                <p className="text-xl font-mono font-bold text-flamingo/80">{asset.value}</p>
-              </div>
-
-              <div className="mt-4 pt-4 border-t border-charcoal/5 flex justify-between items-center text-[10px] font-mono text-charcoal/60 opacity-80">
-                <div className="flex items-center gap-1">
-                  <AlertTriangle size={10} />
-                  HEAT: {asset.heat}/10
-                </div>
-                <span className={`px-2 py-0.5 rounded ${
-                  asset.status === 'Seized' ? 'bg-red-500/10 text-red-500' : 'bg-flamingo/10 text-flamingo'
-                }`}>
                   {asset.status.toUpperCase()}
                 </span>
+              </div>
+
+              {/* Card body */}
+              <div className="p-4 flex flex-col flex-1">
+                <div className="flex justify-between items-start mb-3">
+                  <Box className={`w-5 h-5 ${asset.status === 'Seized' ? 'text-red-500' : 'text-flamingo'}`} />
+                  <button
+                    onClick={() => removeAsset(asset.id)}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-charcoal/5 rounded"
+                  >
+                    <Trash2 size={14} className="text-charcoal/40" />
+                  </button>
+                </div>
+
+                <div className="space-y-1 flex-1">
+                  <h3 className="font-header font-bold italic text-base leading-tight uppercase group-hover:text-flamingo transition-colors text-charcoal">
+                    {asset.name}
+                  </h3>
+                  <p className="text-xl font-mono font-bold text-flamingo/80">{asset.value}</p>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-charcoal/5 flex justify-between items-center text-[10px] font-mono text-charcoal/60 opacity-80">
+                  <div className="flex items-center gap-1">
+                    <AlertTriangle size={10} />
+                    HEAT: {asset.heat}/10
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}

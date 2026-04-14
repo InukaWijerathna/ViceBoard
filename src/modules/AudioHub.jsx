@@ -11,15 +11,36 @@ const AudioHub = () => {
   };
 
   const onReady = (event) => {
-    setPlayer(event.target);
-    event.target.playVideo();
+    const p = event.target;
+    setPlayer(p);
+    p.setVolume(0);
+    p.playVideo();
+
+    // Fade in from 0 → 100 over ~3 seconds (60 steps × 50ms)
+    const totalSteps = 60;
+    const targetVolume = 100;
+    let step = 0;
+    const fadeInterval = setInterval(() => {
+      step++;
+      const vol = Math.round((targetVolume / totalSteps) * step);
+      p.setVolume(vol);
+      if (step >= totalSteps) clearInterval(fadeInterval);
+    }, 50);
   };
 
   const toggleMute = () => {
     if (player) {
       if (isMuted) {
+        // Fade back in over ~1 second (20 steps × 50ms)
         player.unMute();
-        player.setVolume(100);
+        player.setVolume(0);
+        const totalSteps = 20;
+        let step = 0;
+        const fadeInterval = setInterval(() => {
+          step++;
+          player.setVolume(Math.round((100 / totalSteps) * step));
+          if (step >= totalSteps) clearInterval(fadeInterval);
+        }, 50);
       } else {
         player.mute();
       }

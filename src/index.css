@@ -67,13 +67,45 @@
 
 /* Animations */
 @keyframes vhs-flicker {
-  0% { opacity: 0.98; }
-  100% { opacity: 1; }
+  0%   { opacity: 0.97; }
+  25%  { opacity: 1; }
+  50%  { opacity: 0.98; }
+  75%  { opacity: 1; }
+  100% { opacity: 0.97; }
 }
 
 @keyframes scanline {
-  0% { transform: translateY(0); }
+  0%   { transform: translateY(-100%); }
   100% { transform: translateY(100vh); }
+}
+
+@keyframes vhs-rgb-shift {
+  0%   { text-shadow: -1px 0 #FF007F, 1px 0 #00FFFF; }
+  25%  { text-shadow: 1px 0 #FF007F, -1px 0 #00FFFF; }
+  50%  { text-shadow: -2px 0 #FF007F, 2px 0 #00FFFF; }
+  75%  { text-shadow: 0 0 transparent; }
+  100% { text-shadow: -1px 0 #FF007F, 1px 0 #00FFFF; }
+}
+
+@keyframes vhs-tracking {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(200vh); opacity: 0; }
+}
+
+@keyframes vhs-noise {
+  0%   { background-position: 0 0; }
+  10%  { background-position: -5% -10%; }
+  20%  { background-position: -15% 5%; }
+  30%  { background-position: 7% -25%; }
+  40%  { background-position: -5% 25%; }
+  50%  { background-position: -15% 10%; }
+  60%  { background-position: 15% 0%; }
+  70%  { background-position: 0% 15%; }
+  80%  { background-position: 3% 35%; }
+  90%  { background-position: -10% 10%; }
+  100% { background-position: 0 0; }
 }
 
 .animate-vhs-flicker {
@@ -82,4 +114,169 @@
 
 .animate-scanline {
   animation: scanline 12s linear infinite;
+}
+
+/* === VHS OVERLAY — horizontal scanlines + noise grain === */
+.vhs-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+
+  /* Horizontal scanlines */
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+  background-size: 100% 4px;
+
+  /* Subtle flicker */
+  animation: vhs-flicker 0.12s steps(1) infinite;
+
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+/* === VHS SCANLINE — the single bright rolling line === */
+.vhs-scanline {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  z-index: 10000;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 255, 255, 0.18) 40%,
+    rgba(255, 0, 127, 0.25) 60%,
+    transparent
+  );
+
+  animation: vhs-tracking 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  box-shadow: 0 0 8px 2px rgba(0, 255, 255, 0.15);
+}
+
+/* ============================================================
+   GLITCH EFFECT SYSTEM
+   ============================================================ */
+
+/* Horizontal tear — slices a band of the screen sideways */
+@keyframes glitch-tear {
+  0%   { clip-path: inset(40% 0 50% 0); transform: translateX(-8px); }
+  10%  { clip-path: inset(10% 0 85% 0); transform: translateX(6px); }
+  20%  { clip-path: inset(70% 0 5%  0); transform: translateX(-4px); }
+  30%  { clip-path: inset(25% 0 68% 0); transform: translateX(10px); }
+  40%  { clip-path: inset(55% 0 30% 0); transform: translateX(-6px); }
+  50%  { clip-path: inset(80% 0 2%  0); transform: translateX(3px); }
+  60%  { clip-path: inset(15% 0 75% 0); transform: translateX(-10px); }
+  70%  { clip-path: inset(45% 0 40% 0); transform: translateX(7px); }
+  80%  { clip-path: inset(60% 0 20% 0); transform: translateX(-5px); }
+  90%  { clip-path: inset(5%  0 90% 0); transform: translateX(9px); }
+  100% { clip-path: inset(40% 0 50% 0); transform: translateX(-8px); }
+}
+
+/* RGB channel split — red channel shifts left, cyan right */
+@keyframes glitch-rgb {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; transform: translateX(-4px); filter: hue-rotate(0deg); }
+  15%  { transform: translateX(4px);  filter: hue-rotate(90deg); }
+  25%  { transform: translateX(-6px); filter: hue-rotate(180deg); }
+  35%  { transform: translateX(2px);  filter: hue-rotate(270deg); }
+  45%  { transform: translateX(-3px); filter: hue-rotate(0deg); }
+  55%  { transform: translateX(5px);  filter: hue-rotate(90deg); }
+  65%  { transform: translateX(-2px); filter: hue-rotate(180deg); }
+  75%  { transform: translateX(6px);  filter: hue-rotate(270deg); }
+  85%  { transform: translateX(-4px); filter: hue-rotate(0deg); }
+  95%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* White static flash burst */
+@keyframes glitch-static {
+  0%   { opacity: 0; }
+  10%  { opacity: 0.15; }
+  15%  { opacity: 0; }
+  30%  { opacity: 0.08; }
+  33%  { opacity: 0; }
+  60%  { opacity: 0.12; }
+  62%  { opacity: 0; }
+  80%  { opacity: 0.06; }
+  85%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Full-page skew when glitch is active */
+@keyframes glitch-body-skew {
+  0%   { transform: skewX(0deg); }
+  20%  { transform: skewX(-0.4deg); }
+  40%  { transform: skewX(0.3deg); }
+  60%  { transform: skewX(-0.5deg); }
+  80%  { transform: skewX(0.2deg); }
+  100% { transform: skewX(0deg); }
+}
+
+/* === Glitch Layers === */
+
+/* Layer 1 — horizontal tear slice */
+.vhs-glitch-tear {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  pointer-events: none;
+  background: inherit;
+  animation: glitch-tear 0.18s steps(1) forwards;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+/* Layer 2 — RGB chromatic split overlay */
+.vhs-glitch-rgb {
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 127, 0.15) 0%,
+    transparent 50%,
+    rgba(0, 255, 255, 0.15) 100%
+  );
+  animation: glitch-rgb 0.2s steps(2) forwards;
+  mix-blend-mode: color-dodge;
+}
+
+/* Layer 3 — white static noise burst */
+.vhs-glitch-static {
+  position: fixed;
+  inset: 0;
+  z-index: 10003;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.04) 0px,
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.03) 0px,
+    rgba(255,255,255,0.03) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  animation: glitch-static 0.22s steps(1) forwards;
+}
+
+/* Body skew when glitch fires */
+body.vhs-glitch-active {
+  animation: glitch-body-skew 0.15s steps(2) forwards;
+  transform-origin: center center;
 }

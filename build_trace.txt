@@ -1,0 +1,25 @@
+Γ£ù Build failed in 117ms
+error during build:
+Build failed with 1 error:
+
+[plugin @tailwindcss/vite:generate:build] D:/Documents/VICE The South Beach Wire/src/index.css
+Error: `@utility` cannot be nested.
+    at file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/tailwindcss/dist/chunk-F4544Y4M.mjs:32:3317
+    at Cr (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/tailwindcss/dist/chunk-F4544Y4M.mjs:3:1733)
+    at _ (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/tailwindcss/dist/chunk-F4544Y4M.mjs:3:1377)
+    at Zi (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/tailwindcss/dist/chunk-F4544Y4M.mjs:32:2712)
+    at async ua (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/tailwindcss/dist/chunk-F4544Y4M.mjs:38:631)
+    at async yf (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/tailwindcss/dist/chunk-F4544Y4M.mjs:38:1406)
+    at async uu (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/@tailwindcss/node/dist/index.mjs:10:3457)
+    at async B.generate (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/@tailwindcss/vite/dist/index.mjs:1:5236)
+    at async TransformPluginContextImpl.handler (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/@tailwindcss/vite/dist/index.mjs:1:3957)
+    at async plugin (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/rolldown/dist/shared/bindingify-input-options-DYpBf1OG.mjs:1172:16)
+    at aggregateBindingErrorsIntoJsError (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/rolldown/dist/shared/error-w0u7biK-.mjs:48:18)
+    at unwrapBindingResult (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/rolldown/dist/shared/error-w0u7biK-.mjs:18:128)
+    at #build (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/rolldown/dist/shared/rolldown-build-DtGk-m96.mjs:3313:34)
+    at async buildEnvironment (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/vite/dist/node/chunks/node.js:32954:64)
+    at async Object.build (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/vite/dist/node/chunks/node.js:33376:19)
+    at async Object.buildApp (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/vite/dist/node/chunks/node.js:33373:153)
+    at async CAC.<anonymous> (file:///D:/Documents/VICE%20The%20South%20Beach%20Wire/node_modules/vite/dist/node/cli.js:778:3) {
+  errors: [Getter/Setter]
+}

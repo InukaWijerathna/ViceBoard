@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-flamingo: #FF007F;
+  --color-teal: #00FFFF;
+  --color-linen: #FDF5E6;
+  --color-peach: #FFDAB9;
+  --color-mint: #BDFCC9;
+  --color-charcoal: #2D3436;
+  
+  --font-header: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  body {
+    @apply transition-colors duration-1000 overflow-x-hidden bg-linen text-charcoal;
+    margin: 0;
+  }
+}
+
+/* 80s Mechanical Button Utilities - Flat Redesign */
+@utility btn-80s {
+  @apply relative flex items-center justify-center transition-all duration-100 active:scale-95;
+  background: #f0f0f0;
+  border: 1px solid rgba(45, 52, 54, 0.15);
+}
+
+@utility btn-80s-active {
+  background: #e0e0e0;
+  @apply translate-y-[1px];
+}
+
+@utility btn-80s-red {
+  @apply relative flex items-center justify-center transition-all duration-100 active:scale-95;
+  background: #cc0000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@utility btn-80s-red-active {
+  background: #880000;
+  @apply translate-x-[1px] translate-y-[1px];
+}
+
+@layer components {
+  /* Dynamic Backgrounds */
+  .bg-vicedrive {
+    @apply transition-colors duration-1000 bg-linen;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md rounded-2xl transition-all duration-500 overflow-hidden bg-white/60 border-charcoal/5;
+  }
+
+  .neon-text-flamingo {
+    @apply text-flamingo;
+  }
+
+  .neon-text-teal {
+    @apply text-teal;
+  }
+
+  .vhs-mode {
+    filter: sepia(10%) contrast(1.05) brightness(1.02);
+  }
+}
+
+/* Animations */
+@keyframes vhs-flicker {
+  0% { opacity: 0.98; }
+  100% { opacity: 1; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
+}
+
+.animate-vhs-flicker {
+  animation: vhs-flicker 0.15s infinite;
+}
+
+.animate-scanline {
+  animation: scanline 12s linear infinite;
+}

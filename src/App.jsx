@@ -11,6 +11,7 @@ import Dashboard from './modules/Dashboard';
 import AssetDatabase from './modules/AssetDatabase';
 import AudioHub from './modules/AudioHub';
 import InteractiveMap from './modules/InteractiveMap';
+import IntelSurveillance from './modules/IntelSurveillance';
 
 function App() {
   return (
@@ -49,6 +50,11 @@ function App() {
               <h2 className="text-xs font-mono uppercase tracking-[0.4em]">Operations Center</h2>
             </div>
             <Dashboard />
+          </section>
+
+          {/* Intel Surveillance Section */}
+          <section id="intel" className="scroll-mt-24">
+            <IntelSurveillance />
           </section>
 
           {/* Map Section */}

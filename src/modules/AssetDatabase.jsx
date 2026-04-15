@@ -38,6 +38,30 @@ const AssetDatabase = () => {
       status: 'Seized',
       image: '/asset_loft.png',
     },
+    {
+      id: 5,
+      name: 'Black Ferrari Daytona',
+      value: '$140,000',
+      heat: 6,
+      status: 'Active',
+      image: '/asset_daytona.png',
+    },
+    {
+      id: 6,
+      name: 'St. Vitus\' Dance',
+      value: '$350,000',
+      heat: 1,
+      status: 'Active',
+      image: '/asset_sailboat.png',
+    },
+    {
+      id: 7,
+      name: 'Gold Coast Warehouse',
+      value: '$2,500,000',
+      heat: 0,
+      status: 'Active',
+      image: '/asset_warehouse.png',
+    },
   ]);
 
   const removeAsset = (id) => {

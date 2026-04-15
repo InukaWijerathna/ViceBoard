@@ -1,43 +1,54 @@
-# Vice-Board // Global Intelligence Terminal
+# Vice-Board // Retro-Intelligence Dashboard
 
-**Vice-Board** is a highly functional, immersive digital dashboard designed to provide a synchronous **worldwide real-time clock, meteorological weather radar, and localized news feed**.
-
-While it serves as a powerful global data tracking terminal, its interface is heavily stylized using a retro-futurist 1980s **Miami Vice** aesthetic. This serves purely as a stylistic fan tribute, combining CRT static, synthwave distortion, and tactical intelligence design languages to turn a standard data feed into a premium, cinematic experience.
+**Vice-Board** is a sophisticated **Retro-Intelligence Dashboard** that synthesizes real-world data telemetry with a high-fidelity 1980s aesthetic. It serves as a comprehensive global monitoring system for real-time clocks, meteorological patterns, and tactical intelligence feeds.
 
 ---
 
-## 🕹️ How to Use
+## 🕹️ System Operation
 
-The dashboard is strictly designed to be location-aware and responsive to user queries.
+Designed as a location-aware terminal, the system recalibrates its entire UI based on user search queries.
 
-1. **Shift Global Jurisdictions:** Look for the top-center module marked "Atmospheric Downlink" and click on the currently active city name. A tactical search bar dropdown will appear.
-2. **Search Locations:** Type in the name of any major city worldwide (e.g., *Tokyo*, *London*, *Berlin*) to query the system network.
-3. **Analyze Local Data:** Once you select a city, the entire system will automatically re-calibrate its coordinates. It will instantly begin streaming back the local Time Zone, exact Atmospheric Weather patterns, and a dynamically looping Tactical News Feed (Live Intel) tracking local civilian and police events within that region.
-4. **Audio Control:** Click the audio visualizer in the top right corner navigation bar to toggle the ambient synthesizer music soundtrack on or off.
-
----
-
-## 🚀 Core Development Features
-
-- **Live Meteorological Tracking:** Integrated directly with the **Open-Meteo API** to fetch synchronous, hyper-localized weather data, which is mapped into tactical 1980s UI terminology.
-- **Global News Engine:** Powered by **The Guardian Open Data API**, seamlessly mining and scrubbing real-world civilian events and reformatting them into "undercover" intelligence files and intercepts. Includes fault-tolerant background polling loops.
-- **Immersive CRT Engine:** A permanent VHS overlay built purely with responsive CSS, deploying high-fidelity CRT scanline layers, glowing typography, and neon glassmorphic structures.
-- **Zustand State Telemetry:** A rigid central nervous system handling geospatial coordinates, asynchronous network refreshes, and dynamic timezone resolution.
+1. **Geospatial Jurisdiction:** Click the primary city label in the "Atmospheric Downlink" module to access the global search override.
+2. **Data Calibration:** Entering a city name (e.g., *Hong Kong*, *Paris*, *New York*) triggers a cascading refresh across all intelligence modules.
+3. **Intelligence Stream:** The system provides specialized data on:
+    - **Operations Time:** Synchronized UTC/Local timezone delta.
+    - **Atmospheric Downlink:** Live meteorological telemetry (Temp, Humidity, WMO codes).
+    - **Live Intel:** Real-world news events parsed into tactical field intercepts.
+    - **Asset Database:** Simulated resource management for undercover operations.
 
 ---
 
-## 🛠️ Tech Stack
-- **Framework**: [Vite](https://vitejs.dev/) + [React](https://reactjs.org/)
-- **Data Logic**: [Zustand](https://github.com/pmndrs/zustand)
-- **Styling Architecture**: [Tailwind CSS v4](https://tailwindcss.com/)
-- **Micro-Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Music Player**: [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference)
+## ⚙️ Technical Architecture
+
+### 📡 Data Telemetry & APIs
+- **Open-Meteo Geocoding & Weather:** Utilizes high-precision GPS coordinates to fetch real-time atmospheric data. Includes custom mapping logic for WMO (World Meteorological Organization) codes into tactical descriptors.
+- **Guardian Open News API:** A specialized intelligence engine that autonomously polls for global news, scrubs metadata, and reformats headlines into field-ready "Intercepts" using regex-based sanitization.
+- **Asynchronous Loop Protocols:** Implements self-healing retry mechanisms and intelligent debouncing to maintain stable connections under API rate-limiting conditions.
+
+### 📼 Visual & Sound Engineering
+- **CRT & VHS Simulation:** A deeply layered CSS engine using pseudo-elements to create scanline overlays, grain distortion, and a persistent "analog" glow.
+- **Glassmorphism 2.0:** High-blur backdrop filters matched with ultra-thin borders and varying opacity levels to simulate backlit acrylic terminal displays.
+- **Audio Sensory Feedback:** 
+    - **Low-Latency Interactions:** High-frequency click sounds for interface navigation.
+    - **Typewriter Engine:** Specialized `key_sound.mp3` triggers for search bar inputs.
+    - **YouTube Hub:** Integrates the **YouTube IFrame Player API** for a seamless, volume-controlled ambient soundtrack with custom fade-in/fade-out logic.
+
+### 🧬 Logical Framework
+- **State Management:** Powered by **Zustand**, providing a lightweight but rigid reactive core for cross-module synchronization (location changes, refresh triggers).
+- **Animation Matrix:** Orchestrated by **Framer Motion** to handle terminal-style layout transitions, tactical list streaming, and UI element entry/exit logic.
+- **Path Resolution:** Custom asset utility system to ensure consistent pathing across both local development and GitHub Pages (sub-path) production deployments.
+
+---
+
+## 🛠️ Stack Summary
+- **Core**: Vite 8.0, React 19
+- **Engine**: Zustand (State Management), Framer Motion (Animations)
+- **UI Architecture**: Tailwind CSS v4 (Modern @theme directive system)
+- **Mapping**: React-Leaflet (Surveillance Visualizer)
 
 ---
 
 ## ⚠️ Legal Disclaimer
+This is a non-commercial portfolio project for educational and design exploration. Themes and conceptual tributes belong to NBCUniversal. Data is provided "as-is" via public domain APIs.
 
-This is a non-commercial portfolio application created strictly for educational web development and UI design exploration purposes. The *Miami Vice* terminology, conceptual aesthetic, and stylistic tribute elements belong solely to NBCUniversal. This application is not affiliated with, endorsed by, or sponsored by the original creators, network, or rights holders. All real-world news and weather telemetry datasets are sourced dynamically via free public APIs (Open-Meteo, The Guardian) and are provided purely "as-is" for technical demonstration capabilities.
-
----
 *Designed for the digital outrun.* 🏙️🌃🏎️

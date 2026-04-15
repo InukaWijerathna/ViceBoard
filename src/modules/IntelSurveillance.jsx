@@ -4,13 +4,13 @@ import { User, Shield, Info, Users, Zap } from 'lucide-react';
 import { getAssetUrl } from '../utils/paths';
 
 const PERSONNEL = [
-  { name: 'JAMES CROCKETT', alias: 'SONNY', role: 'Detective', status: 'UNDERCOVER', img: getAssetUrl('personnel/crockett.png') },
-  { name: 'RICARDO TUBBS', alias: 'RICO', role: 'Detective', status: 'UNDERCOVER', img: getAssetUrl('personnel/tubbs.png') },
-  { name: 'MARTIN CASTILLO', alias: 'LIEUTENANT', role: 'Command', status: 'HQ', img: getAssetUrl('personnel/castillo.png') },
-  { name: 'GINA CALABRESE', alias: 'GINA', role: 'Detective', status: 'FIELD', img: getAssetUrl('personnel/gina.png') },
-  { name: 'TRUDY JOPLIN', alias: 'PRO-ACTIVE', role: 'Detective', status: 'FIELD', img: getAssetUrl('personnel/trudy.png') },
-  { name: 'STANLEY SWITEK', alias: 'STAN', role: 'Surveillance', status: 'HQ', img: getAssetUrl('personnel/switek.png') },
-  { name: 'LAWRENCE ZITO', alias: 'LARRY', role: 'Surveillance', status: 'HQ', img: getAssetUrl('personnel/zito.png') },
+  { name: 'JAMES CROCKETT', alias: 'SONNY', role: 'Detective', status: 'UNDERCOVER', img: getAssetUrl('personnel/crockett.png'), censorY: '38%' },
+  { name: 'RICARDO TUBBS', alias: 'RICO', role: 'Detective', status: 'UNDERCOVER', img: getAssetUrl('personnel/tubbs.png'), censorY: '32%' },
+  { name: 'MARTIN CASTILLO', alias: 'LIEUTENANT', role: 'Command', status: 'HQ', img: getAssetUrl('personnel/castillo.png'), censorY: '25%' },
+  { name: 'GINA CALABRESE', alias: 'GINA', role: 'Detective', status: 'FIELD', img: getAssetUrl('personnel/gina.png'), censorY: '42%' },
+  { name: 'TRUDY JOPLIN', alias: 'PRO-ACTIVE', role: 'Detective', status: 'FIELD', img: getAssetUrl('personnel/trudy.png'), censorY: '36%' },
+  { name: 'STANLEY SWITEK', alias: 'STAN', role: 'Surveillance', status: 'HQ', img: getAssetUrl('personnel/switek.png'), censorY: '40%' },
+  { name: 'LAWRENCE ZITO', alias: 'LARRY', role: 'Surveillance', status: 'HQ', img: getAssetUrl('personnel/zito.png'), censorY: '28%' },
 ];
 
 const CONTACTS = [
@@ -49,7 +49,10 @@ const IntelSurveillance = () => {
                       className="w-full h-full object-cover grayscale contrast-200 brightness-75 scale-110"
                     />
                     {/* Censored Bar */}
-                    <div className="absolute top-[35%] left-0 w-full h-[15%] bg-charcoal z-10 shadow-[0_0_5px_rgba(0,0,0,0.5)]" />
+                    <div 
+                      className="absolute left-0 w-full h-[15%] bg-charcoal z-10 shadow-[0_0_5px_rgba(0,0,0,0.5)]" 
+                      style={{ top: person.censorY || '35%' }}
+                    />
                     {/* Scanline Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-charcoal/10 to-transparent pointer-events-none" />
                   </div>

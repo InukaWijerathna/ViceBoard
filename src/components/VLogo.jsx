@@ -1,6 +1,6 @@
 import React from 'react';
-import { getAssetUrl } from '../utils/paths';
 import { motion } from 'framer-motion';
+import logoImg from '../assets/logo.png';
 
 const VLogo = () => {
   return (
@@ -11,7 +11,7 @@ const VLogo = () => {
       transition={{ duration: 0.5 }}
     >
       <img 
-        src={getAssetUrl('src/assets/logo.png')} 
+        src={logoImg} 
         alt="VICE-BOARD" 
         className="w-full h-full object-contain"
       />

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/Vice-Board/",
+    "build": "vite build --base=/ViceBoard/",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",

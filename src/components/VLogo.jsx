@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../utils/paths';
 import { motion } from 'framer-motion';
 
 const VLogo = () => {
@@ -10,7 +11,7 @@ const VLogo = () => {
       transition={{ duration: 0.5 }}
     >
       <img 
-        src={`${import.meta.env.BASE_URL}favicon.ico`} 
+        src={getAssetUrl('favicon.ico')} 
         alt="VICE-BOARD" 
         className="w-full h-full object-contain p-1.5"
       />

@@ -1,14 +1,9 @@
 /**
- * Robust asset path resolution for GitHub Pages/sub-path deployments.
- * This utility ensures that paths are correctly prefixed with the BASE_URL.
+ * Ultra-robust asset path resolution for GitHub Pages/sub-path deployments.
+ * This version uses relative paths to avoid base URL resolution issues.
  */
 export const getAssetUrl = (path) => {
-  // Use Vite's BASE_URL, which defaults to '/' if not set in vite.config.js
-  const base = import.meta.env.BASE_URL || '/Vice-Board/';
-  
-  // Clean up paths: ensure base ends with / and path doesn't start with /
-  const cleanBase = base.endsWith('/') ? base : `${base}/`;
-  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  
-  return `${cleanBase}${cleanPath}`;
+  // Moving to relative paths: "personnel/crockett.png" instead of "/personnel/crockett.png"
+  // This works because the app is hosted at /Vice-Board/index.html
+  return path.startsWith('/') ? path.slice(1) : path;
 };

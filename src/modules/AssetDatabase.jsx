@@ -12,7 +12,7 @@ const AssetDatabase = () => {
       value: '$180,000',
       heat: 8,
       status: 'Active',
-      image: '/asset_ferrari.png',
+      image: `${import.meta.env.BASE_URL}asset_ferrari.png`,
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ const AssetDatabase = () => {
       value: '$240,000',
       heat: 5,
       status: 'Active',
-      image: '/asset_speedboat.png',
+      image: `${import.meta.env.BASE_URL}asset_speedboat.png`,
     },
     {
       id: 3,
@@ -28,7 +28,7 @@ const AssetDatabase = () => {
       value: '$1,200,000',
       heat: 2,
       status: 'Active',
-      image: '/asset_safehouse.png',
+      image: `${import.meta.env.BASE_URL}asset_safehouse.png`,
     },
     {
       id: 4,
@@ -36,7 +36,7 @@ const AssetDatabase = () => {
       value: '$850,000',
       heat: 4,
       status: 'Seized',
-      image: '/asset_loft.png',
+      image: `${import.meta.env.BASE_URL}asset_loft.png`,
     },
     {
       id: 5,
@@ -44,7 +44,7 @@ const AssetDatabase = () => {
       value: '$140,000',
       heat: 6,
       status: 'Active',
-      image: '/asset_daytona.png',
+      image: `${import.meta.env.BASE_URL}asset_daytona.png`,
     },
     {
       id: 6,
@@ -52,7 +52,7 @@ const AssetDatabase = () => {
       value: '$350,000',
       heat: 1,
       status: 'Active',
-      image: '/asset_sailboat.png',
+      image: `${import.meta.env.BASE_URL}asset_sailboat.png`,
     },
     {
       id: 7,
@@ -60,7 +60,7 @@ const AssetDatabase = () => {
       value: '$2,500,000',
       heat: 0,
       status: 'Active',
-      image: '/asset_warehouse.png',
+      image: `${import.meta.env.BASE_URL}asset_warehouse.png`,
     },
   ]);
 

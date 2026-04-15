@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { User, Shield, Info, Users, Zap } from 'lucide-react';
 
 const PERSONNEL = [
-  { name: 'JAMES CROCKETT', alias: 'SONNY', role: 'Detective', status: 'UNDERCOVER', img: '/personnel/crockett.png' },
-  { name: 'RICARDO TUBBS', alias: 'RICO', role: 'Detective', status: 'UNDERCOVER', img: '/personnel/tubbs.png' },
-  { name: 'MARTIN CASTILLO', alias: 'LIEUTENANT', role: 'Command', status: 'HQ', img: '/personnel/castillo.png' },
-  { name: 'GINA CALABRESE', alias: 'GINA', role: 'Detective', status: 'FIELD', img: '/personnel/gina.png' },
-  { name: 'TRUDY JOPLIN', alias: 'PRO-ACTIVE', role: 'Detective', status: 'FIELD', img: '/personnel/trudy.png' },
-  { name: 'STANLEY SWITEK', alias: 'STAN', role: 'Surveillance', status: 'HQ', img: '/personnel/switek.png' },
-  { name: 'LAWRENCE ZITO', alias: 'LARRY', role: 'Surveillance', status: 'HQ', img: '/personnel/zito.png' },
+  { name: 'JAMES CROCKETT', alias: 'SONNY', role: 'Detective', status: 'UNDERCOVER', img: `${import.meta.env.BASE_URL}personnel/crockett.png` },
+  { name: 'RICARDO TUBBS', alias: 'RICO', role: 'Detective', status: 'UNDERCOVER', img: `${import.meta.env.BASE_URL}personnel/tubbs.png` },
+  { name: 'MARTIN CASTILLO', alias: 'LIEUTENANT', role: 'Command', status: 'HQ', img: `${import.meta.env.BASE_URL}personnel/castillo.png` },
+  { name: 'GINA CALABRESE', alias: 'GINA', role: 'Detective', status: 'FIELD', img: `${import.meta.env.BASE_URL}personnel/gina.png` },
+  { name: 'TRUDY JOPLIN', alias: 'PRO-ACTIVE', role: 'Detective', status: 'FIELD', img: `${import.meta.env.BASE_URL}personnel/trudy.png` },
+  { name: 'STANLEY SWITEK', alias: 'STAN', role: 'Surveillance', status: 'HQ', img: `${import.meta.env.BASE_URL}personnel/switek.png` },
+  { name: 'LAWRENCE ZITO', alias: 'LARRY', role: 'Surveillance', status: 'HQ', img: `${import.meta.env.BASE_URL}personnel/zito.png` },
 ];
 
 const CONTACTS = [

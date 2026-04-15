@@ -10,7 +10,7 @@ const VLogo = () => {
       transition={{ duration: 0.5 }}
     >
       <img 
-        src="/favicon.ico" 
+        src={`${import.meta.env.BASE_URL}favicon.ico`} 
         alt="VICE-BOARD" 
         className="w-full h-full object-contain p-1.5"
       />

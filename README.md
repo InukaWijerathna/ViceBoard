@@ -1,71 +1,43 @@
-# Vice-Board // Miami Digital Dashboard
+# Vice-Board // Global Intelligence Terminal
 
-Vice-Board is a high-fidelity, interactive "Digital Dashboard" inspired by the 1980s Miami aesthetic. It serves as both a retro-futurist art piece and a functional application featuring real-time telemetry, audio visualization, and interactive surveillance mapping.
+**Vice-Board** is a highly functional, immersive digital dashboard designed to provide a synchronous **worldwide real-time clock, meteorological weather radar, and localized news feed**.
 
-## 🌴 Core Concept
-Built as a "Digital Terminal" for a high-speed undercover lifestyle, Vice-Board combines **Glassmorphism**, **VHS Distortion**, and **Authentic Soundtracks** to create a premium, immersive environment.
+While it serves as a powerful global data tracking terminal, its interface is heavily stylized using a retro-futurist 1980s **Miami Vice** aesthetic. This serves purely as a stylistic fan tribute, combining CRT static, synthwave distortion, and tactical intelligence design languages to turn a standard data feed into a premium, cinematic experience.
 
 ---
 
-## 🚀 Technical Features
+## 🕹️ How to Use
 
-### 📡 Real-Time Satellite Downlink
-- **Live Telemetry**: Integrated with the **Open-Meteo API** to fetch real-time weather conditions for **South Beach, Miami**.
-- **Dynamic Updates**: Automatically polls data every 15 minutes with a "Satellite Locked" UI status indicator.
-- **WMO Interpretation**: Custom mapping of World Meteorological Organization codes into "Vice" style descriptors (e.g., "Sky: Pure", "Atmospherics: Rain Matrix").
+The dashboard is strictly designed to be location-aware and responsive to user queries.
 
-### 📺 Permanent VHS Aesthetic
-- **High-Fidelity Scanlines**: A global CSS overlay simulates CRT scanlines and grainy analog distortion.
-- **Analog Glow**: Custom neon glimmer effects and glassmorphic blur intensity that adapts between themes.
-- **Theme Engine**: Seamless transition between **Midnight Mode** (Neon/Electric) and **South Beach Mode** (Pastel/Linen/Mint).
+1. **Shift Global Jurisdictions:** Look for the top-center module marked "Atmospheric Downlink" and click on the currently active city name. A tactical search bar dropdown will appear.
+2. **Search Locations:** Type in the name of any major city worldwide (e.g., *Tokyo*, *London*, *Berlin*) to query the system network.
+3. **Analyze Local Data:** Once you select a city, the entire system will automatically re-calibrate its coordinates. It will instantly begin streaming back the local Time Zone, exact Atmospheric Weather patterns, and a dynamically looping Tactical News Feed (Live Intel) tracking local civilian and police events within that region.
+4. **Audio Control:** Click the audio visualizer in the top right corner navigation bar to toggle the ambient synthesizer music soundtrack on or off.
 
-### 🎧 Jan Hammer Audio Hub
-- **YouTube API Integration**: Streams authentic series soundtracks (e.g., *Crockett's Theme*) directly via a hidden YouTube IFrame player.
-- **Tactile Feedback**: Low-latency mechanical mouse click sounds (embedded via Base64) for every dashboard interaction.
-- **Mock Visualizer**: A pulsing frequency bar system that acts as a low-fi heartbeat for the dashboard.
+---
 
-### 🗺️ Miami Intelligence Suite
-- **Interactive Map**: Built with **React-Leaflet**, featuring custom CSS filters to maintain the VHS look and surveillance pins at key Miami nodes.
-- **Asset Database**: A CRUD-capable grid for managing undercover assets, featuring "Heat Level" visualizers and data-ready states.
+## 🚀 Core Development Features
+
+- **Live Meteorological Tracking:** Integrated directly with the **Open-Meteo API** to fetch synchronous, hyper-localized weather data, which is mapped into tactical 1980s UI terminology.
+- **Global News Engine:** Powered by **The Guardian Open Data API**, seamlessly mining and scrubbing real-world civilian events and reformatting them into "undercover" intelligence files and intercepts. Includes fault-tolerant background polling loops.
+- **Immersive CRT Engine:** A permanent VHS overlay built purely with responsive CSS, deploying high-fidelity CRT scanline layers, glowing typography, and neon glassmorphic structures.
+- **Zustand State Telemetry:** A rigid central nervous system handling geospatial coordinates, asynchronous network refreshes, and dynamic timezone resolution.
 
 ---
 
 ## 🛠️ Tech Stack
 - **Framework**: [Vite](https://vitejs.dev/) + [React](https://reactjs.org/)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (using `@theme` directives)
-- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Mapping**: [React-Leaflet](https://react-leaflet.js.org/)
-- **Audio API**: [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference)
+- **Data Logic**: [Zustand](https://github.com/pmndrs/zustand)
+- **Styling Architecture**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Micro-Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Music Player**: [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference)
 
 ---
 
-## 🏁 Installation & Development
+## ⚠️ Legal Disclaimer
 
-1. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Run Dev Server**:
-   ```bash
-   npm run dev
-   ```
-
-3. **Build Prod Bundle**:
-   ```bash
-   npm run build
-   ```
+This is a non-commercial portfolio application created strictly for educational web development and UI design exploration purposes. The *Miami Vice* terminology, conceptual aesthetic, and stylistic tribute elements belong solely to NBCUniversal. This application is not affiliated with, endorsed by, or sponsored by the original creators, network, or rights holders. All real-world news and weather telemetry datasets are sourced dynamically via free public APIs (Open-Meteo, The Guardian) and are provided purely "as-is" for technical demonstration capabilities.
 
 ---
-
-## 📁 Project Structure
-- `src/modules/`: Main functional components (Dashboard, AudioHub, Map, etc.)
-- `src/store/`: Zustand global state manager (`useStore.js`)
-- `src/components/`: Reusable UI elements (VLogo, VhsOverlay, ClickSoundProvider)
-- `src/index.css`: Global Tailwind v4 theme and custom VHS distortion effects.
-
----
-
 *Designed for the digital outrun.* 🏙️🌃🏎️

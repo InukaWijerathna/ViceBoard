@@ -16,9 +16,9 @@ const AudioHub = () => {
     p.setVolume(0);
     p.playVideo();
 
-    // Fade in from 0 → 50 over ~3 seconds (60 steps × 50ms)
+    // Fade in from 0 → 15 over ~3 seconds (60 steps × 50ms)
     const totalSteps = 60;
-    const targetVolume = 50;
+    const targetVolume = 15;
     let step = 0;
     const fadeInterval = setInterval(() => {
       step++;
@@ -38,7 +38,7 @@ const AudioHub = () => {
         let step = 0;
         const fadeInterval = setInterval(() => {
           step++;
-          player.setVolume(Math.round((50 / totalSteps) * step));
+          player.setVolume(Math.round((15 / totalSteps) * step));
           if (step >= totalSteps) clearInterval(fadeInterval);
         }, 50);
       } else {

@@ -70,12 +70,29 @@ function App() {
         </main>
 
         {/* Footer */}
-        <footer className="py-12 border-t border-charcoal/5 font-mono text-[10px] tracking-widest text-charcoal/60 text-center max-w-7xl mx-auto px-6">
-          <div className="space-y-4">
-            <p className="max-w-2xl mx-auto leading-relaxed">
-              This project is a non-commercial fan tribute to the aesthetic and spirit of Miami Vice. 
-              All rights to the original series belong to NBCUniversal. Created for educational and design exploration purposes.
-            </p>
+        <footer className="py-12 border-t border-charcoal/10 font-mono text-[10px] tracking-widest text-charcoal/60 text-center max-w-4xl mx-auto px-6">
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <h4 className="text-flamingo font-bold italic tracking-[0.2em] uppercase text-xs">System Objective</h4>
+              <p className="leading-relaxed">
+                The primary purpose of this project is to serve as a functional global dashboard, delivering real-time worldwide clock data, live meteorological weather updates, and a synchronous global news feed. The 1980s retro-tech and Miami Vice aesthetic is applied purely as a stylistic fan tribute to enhance the user visual experience.
+              </p>
+            </div>
+            
+            <div className="space-y-3">
+              <h4 className="text-sky-500 font-bold italic tracking-[0.2em] uppercase text-xs">How to Operate</h4>
+              <p className="leading-relaxed">
+                Click on the current city name located in the upper Atmospheric Downlink module to search and shift the system to any worldwide jurisdiction. The local time, weather radar, and tactical Live Intel news stream will automatically re-calibrate to your chosen target location. Use the audio module in the header to control the ambient soundtrack.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="text-charcoal/50 font-bold tracking-[0.2em] uppercase text-[9px] border-t border-charcoal/10 pt-6 mt-4">Disclaimer & Legal</h4>
+              <p className="leading-relaxed text-charcoal/40 text-[9px]">
+                This is a non-commercial portfolio project created for educational and design exploration purposes. The Miami Vice terminology, styling, and conceptual tribute elements belong to NBCUniversal. This application is not affiliated with, endorsed by, or sponsored by the original creators or network. Real-world news and weather data are sourced dynamically via free public APIs and are provided "as-is" for demonstration capabilities.
+              </p>
+            </div>
+
             <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4 pt-4 opacity-70">
               <span>&copy; {new Date().getFullYear()} <span className="text-flamingo font-bold italic">@InukaWijerathna</span></span>
               <span className="hidden md:inline">//</span>

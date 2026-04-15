@@ -14,7 +14,7 @@ const LOCATIONS = [
 ];
 
 const CentralIntelligence = () => {
-  const { selectedArea, intelRefreshTrigger } = useStore();
+  const { selectedArea, intelRefreshTrigger, triggerIntelRefresh } = useStore();
   const [intelItems, setIntelItems] = useState([]);
   const [caseArchives, setCaseArchives] = useState([]);
   const scrollRef = useRef(null);
@@ -48,13 +48,15 @@ const CentralIntelligence = () => {
           setIntelItems([{
             id: 'SYS-ERR-01',
             timestamp: new Date().toLocaleTimeString('en-US', { hour12: false }),
-            title: 'CONNECTION TIMEOUT: API RATE LIMIT EXCEEDED',
+            title: 'CONNECTION TIMEOUT: API RATE LIMIT EXCEEDED - RETRYING...',
             rawTitle: 'API RATE LIMIT EXCEEDED',
             detail: 'SEC: NETWORK // ORIGIN: INTERNAL',
             type: 'SYSTEM FAULT',
             priority: 'HIGH'
           }]);
           setCaseArchives([]);
+          // Auto-retry connection in 8 seconds
+          setTimeout(() => triggerIntelRefresh(), 8000);
           return;
         }
 
@@ -100,6 +102,8 @@ const CentralIntelligence = () => {
             currentIndex++;
           } else {
             clearInterval(interval);
+            // The intel stream array is exhausted. Automatically ping for a fresh payload!
+            triggerIntelRefresh();
           }
         }, 6000 + Math.random() * 4000);
 
@@ -109,12 +113,14 @@ const CentralIntelligence = () => {
           setIntelItems([{
             id: 'SYS-ERR-02',
             timestamp: new Date().toLocaleTimeString('en-US', { hour12: false }),
-            title: 'CONNECTION TIMEOUT: API NO RESPONSE',
-            rawTitle: 'NO RESPONSE',
+            title: 'CONNECTION TIMEOUT: API NO RESPONSE - RETRYING...',
+            rawTitle: 'NO RESPONSE - RETRYING',
             detail: 'SEC: NETWORK // ORIGIN: INTERNAL',
             type: 'SYSTEM FAULT',
             priority: 'HIGH'
           }]);
+          // Auto-retry connection in 8 seconds
+          setTimeout(() => triggerIntelRefresh(), 8000);
         }
       }
     };

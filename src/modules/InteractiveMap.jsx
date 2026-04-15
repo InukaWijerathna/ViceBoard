@@ -9,11 +9,15 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x,
+// Fix for missing marker icons in production using a custom icon
+const customIcon = L.icon({
   iconUrl: markerIcon,
+  iconRetinaUrl: markerIcon2x,
   shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
 });
 
 const InteractiveMap = () => {
@@ -62,7 +66,7 @@ const InteractiveMap = () => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             {surveillancePoints.map(point => (
-              <Marker key={point.id} position={point.coords}>
+              <Marker key={point.id} position={point.coords} icon={customIcon}>
                 <Popup>
                   <div className="p-2 space-y-2">
                     <div className="flex items-center gap-2 text-flamingo font-mono font-bold text-xs uppercase">

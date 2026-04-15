@@ -1,15 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { User, Shield, Info, Users, Zap } from 'lucide-react';
+import { getAssetUrl } from '../utils/paths';
 
 const PERSONNEL = [
-  { name: 'JAMES CROCKETT', alias: 'SONNY', role: 'Detective', status: 'UNDERCOVER', img: `${import.meta.env.BASE_URL}personnel/crockett.png` },
-  { name: 'RICARDO TUBBS', alias: 'RICO', role: 'Detective', status: 'UNDERCOVER', img: `${import.meta.env.BASE_URL}personnel/tubbs.png` },
-  { name: 'MARTIN CASTILLO', alias: 'LIEUTENANT', role: 'Command', status: 'HQ', img: `${import.meta.env.BASE_URL}personnel/castillo.png` },
-  { name: 'GINA CALABRESE', alias: 'GINA', role: 'Detective', status: 'FIELD', img: `${import.meta.env.BASE_URL}personnel/gina.png` },
-  { name: 'TRUDY JOPLIN', alias: 'PRO-ACTIVE', role: 'Detective', status: 'FIELD', img: `${import.meta.env.BASE_URL}personnel/trudy.png` },
-  { name: 'STANLEY SWITEK', alias: 'STAN', role: 'Surveillance', status: 'HQ', img: `${import.meta.env.BASE_URL}personnel/switek.png` },
-  { name: 'LAWRENCE ZITO', alias: 'LARRY', role: 'Surveillance', status: 'HQ', img: `${import.meta.env.BASE_URL}personnel/zito.png` },
+  { name: 'JAMES CROCKETT', alias: 'SONNY', role: 'Detective', status: 'UNDERCOVER', img: getAssetUrl('personnel/crockett.png') },
+  { name: 'RICARDO TUBBS', alias: 'RICO', role: 'Detective', status: 'UNDERCOVER', img: getAssetUrl('personnel/tubbs.png') },
+  { name: 'MARTIN CASTILLO', alias: 'LIEUTENANT', role: 'Command', status: 'HQ', img: getAssetUrl('personnel/castillo.png') },
+  { name: 'GINA CALABRESE', alias: 'GINA', role: 'Detective', status: 'FIELD', img: getAssetUrl('personnel/gina.png') },
+  { name: 'TRUDY JOPLIN', alias: 'PRO-ACTIVE', role: 'Detective', status: 'FIELD', img: getAssetUrl('personnel/trudy.png') },
+  { name: 'STANLEY SWITEK', alias: 'STAN', role: 'Surveillance', status: 'HQ', img: getAssetUrl('personnel/switek.png') },
+  { name: 'LAWRENCE ZITO', alias: 'LARRY', role: 'Surveillance', status: 'HQ', img: getAssetUrl('personnel/zito.png') },
 ];
 
 const CONTACTS = [

@@ -14,6 +14,9 @@ const ClickSoundProvider = ({ children }) => {
       // Avoid firing on modifier keys alone
       if (e.type === 'keydown' && ['Shift', 'Control', 'Alt', 'Meta'].includes(e.key)) return;
       
+      // Do not play global click sound if user is typing in an input (Dashboard handles specialized key sound)
+      if (e.type === 'keydown' && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      
       if (clickAudio) {
         clickAudio.currentTime = 0;
         clickAudio.play().catch(e => console.log('Audio playback prevented by auto-play policy:', e));

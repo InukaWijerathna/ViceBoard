@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Sun, Droplets, Clock, Satellite, RefreshCw } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Sun, Droplets, Clock, Satellite, RefreshCw, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const MIAMI_AREAS = [
   { id: 'sth-beach', name: 'SOUTH BEACH', lat: 25.7907, lon: -80.1300 },
@@ -13,6 +13,7 @@ const MIAMI_AREAS = [
 const Dashboard = () => {
   const [miamiTime, setMiamiTime] = useState(new Date());
   const [selectedArea, setSelectedArea] = useState(MIAMI_AREAS[0]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [weather, setWeather] = useState({
     temp: '--',
     condition: 'Initializing...',
@@ -74,21 +75,57 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-6">
-      {/* Area Selection Row */}
-      <div className="flex flex-wrap gap-2">
-        {MIAMI_AREAS.map((area) => (
-          <button
-            key={area.id}
-            onClick={() => setSelectedArea(area)}
-            className={`px-3 py-1.5 rounded-xl font-mono text-[10px] tracking-widest transition-all duration-300 border ${
-              selectedArea.id === area.id
-                ? 'bg-flamingo text-white border-flamingo shadow-[0_0_15px_rgba(255,0,127,0.4)] scale-105 z-10'
-                : 'bg-white/40 text-charcoal/60 border-charcoal/10 hover:bg-white/60 hover:border-charcoal/20'
-            }`}
-          >
-            {area.name}
-          </button>
-        ))}
+      {/* Area Selection Dropdown */}
+      <div className="relative">
+        <button
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className="flex items-center gap-4 px-4 py-2.5 rounded-xl font-mono text-[10px] tracking-[0.3em] transition-all duration-300 border bg-white/40 text-charcoal/80 border-charcoal/10 hover:bg-white/60 hover:border-charcoal/20 min-w-[200px] group"
+        >
+          <span className="flex-1 text-left">{selectedArea.name}</span>
+          <ChevronDown 
+            size={14} 
+            className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180 text-flamingo' : 'text-charcoal/40 group-hover:text-charcoal/60'}`} 
+          />
+        </button>
+
+        <AnimatePresence>
+          {isDropdownOpen && (
+            <>
+              {/* Backdrop for closing */}
+              <div 
+                className="fixed inset-0 z-40" 
+                onClick={() => setIsDropdownOpen(false)} 
+              />
+              
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="absolute top-full left-0 mt-2 w-full min-w-[200px] z-50 glass-card border border-charcoal/10 shadow-2xl overflow-hidden"
+              >
+                <div className="flex flex-col py-1">
+                  {MIAMI_AREAS.map((area) => (
+                    <button
+                      key={area.id}
+                      onClick={() => {
+                        setSelectedArea(area);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={`px-4 py-3 text-left font-mono text-[10px] tracking-widest transition-all duration-200 border-l-2 ${
+                        selectedArea.id === area.id
+                          ? 'bg-flamingo/10 text-flamingo border-flamingo'
+                          : 'text-charcoal/60 border-transparent hover:bg-white/80 hover:text-charcoal hover:border-charcoal/20'
+                      }`}
+                    >
+                      {area.name}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">

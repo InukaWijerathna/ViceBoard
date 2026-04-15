@@ -22,6 +22,7 @@ const CentralIntelligence = () => {
   useEffect(() => {
     let interval;
     let isMounted = true;
+    let timeoutId;
 
     const fetchRealIntel = async () => {
       try {
@@ -40,8 +41,22 @@ const CentralIntelligence = () => {
           results = data.response?.results;
         }
 
-        // If rate limited or completely empty, abort to protect existing UI state
-        if (!isMounted || !results || results.length === 0) return;
+        if (!isMounted) return;
+
+        // If rate limited or completely empty, throw a fake error post to prevent infinite blank screen
+        if (!results || results.length === 0) {
+          setIntelItems([{
+            id: 'SYS-ERR-01',
+            timestamp: new Date().toLocaleTimeString('en-US', { hour12: false }),
+            title: 'CONNECTION TIMEOUT: API RATE LIMIT EXCEEDED',
+            rawTitle: 'API RATE LIMIT EXCEEDED',
+            detail: 'SEC: NETWORK // ORIGIN: INTERNAL',
+            type: 'SYSTEM FAULT',
+            priority: 'HIGH'
+          }]);
+          setCaseArchives([]);
+          return;
+        }
 
         // Visual feedback to user that it is reloading new data
         setIntelItems([]);
@@ -71,8 +86,6 @@ const CentralIntelligence = () => {
         setCaseArchives(parsedHits.slice(0, 3));
         
         const liveHits = parsedHits.slice(3);
-
-        // Jump around the feed array randomly to guarantee fresh articles on screen every re-render/refresh
         const offsetIndex = Math.floor(Math.random() * Math.max(1, liveHits.length - 10));
         
         setIntelItems(liveHits.slice(offsetIndex, offsetIndex + 5).reverse());
@@ -92,13 +105,28 @@ const CentralIntelligence = () => {
 
       } catch (error) {
         console.error("Intel fetch failed", error);
+        if (isMounted) {
+          setIntelItems([{
+            id: 'SYS-ERR-02',
+            timestamp: new Date().toLocaleTimeString('en-US', { hour12: false }),
+            title: 'CONNECTION TIMEOUT: API NO RESPONSE',
+            rawTitle: 'NO RESPONSE',
+            detail: 'SEC: NETWORK // ORIGIN: INTERNAL',
+            type: 'SYSTEM FAULT',
+            priority: 'HIGH'
+          }]);
+        }
       }
     };
 
-    fetchRealIntel();
+    // Debounce to prevent React StrictMode double-mounting from instantly rate-limiting the free API key
+    timeoutId = setTimeout(() => {
+      fetchRealIntel();
+    }, 150);
 
     return () => {
       isMounted = false;
+      clearTimeout(timeoutId);
       if (interval) clearInterval(interval);
     };
   }, [selectedArea, intelRefreshTrigger]);
@@ -138,6 +166,15 @@ const CentralIntelligence = () => {
             className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-hide font-mono"
           >
             <AnimatePresence initial={false}>
+              {intelItems.length === 0 && (
+                <motion.p 
+                  initial={{ opacity: 0 }} 
+                  animate={{ opacity: 1, textShadow: '0 0 10px #38bdf8' }} 
+                  className="text-[10px] text-sky-400 font-mono italic p-2"
+                >
+                  ESTABLISHING SECURE LINK...
+                </motion.p>
+              )}
               {intelItems.map((item) => (
                 <motion.div
                   key={item.id}

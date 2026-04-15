@@ -76,7 +76,9 @@ const AssetDatabase = () => {
           <h2 className="text-3xl font-header italic font-extrabold tracking-tight text-charcoal">ASSET PROCUREMENT</h2>
           <p className="text-xs font-mono uppercase mt-1 tracking-widest text-charcoal opacity-80">Global heat level: {heatLevel}/10</p>
         </div>
-        <button className="btn-80s px-4 py-2 border rounded-xl transition-colors text-sm font-mono border-charcoal/20 text-charcoal hover:bg-charcoal/5">
+        <button 
+          className="btn-80s px-4 py-2 border rounded-none transition-colors text-sm font-mono border-charcoal/20 text-charcoal hover:bg-charcoal/5"
+        >
           <Plus size={16} className="mr-2" />
           ACQUIRE NEW
         </button>
@@ -117,7 +119,7 @@ const AssetDatabase = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 {/* Status badge over image */}
                 <span
-                  className={`absolute bottom-2 right-2 px-2 py-0.5 rounded text-[10px] font-mono font-bold tracking-widest z-10 ${
+                  className={`absolute bottom-2 right-2 px-2 py-0.5 rounded-none text-[10px] font-mono font-bold tracking-widest z-10 ${
                     asset.status === 'Seized'
                       ? 'bg-red-500/80 text-white'
                       : 'bg-flamingo/80 text-white'
@@ -133,7 +135,7 @@ const AssetDatabase = () => {
                   <Box className={`w-5 h-5 ${asset.status === 'Seized' ? 'text-red-500' : 'text-flamingo'}`} />
                   <button
                     onClick={() => removeAsset(asset.id)}
-                    className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-charcoal/5 rounded"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-charcoal/5 rounded-none"
                   >
                     <Trash2 size={14} className="text-charcoal/40" />
                   </button>

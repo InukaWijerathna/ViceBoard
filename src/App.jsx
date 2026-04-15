@@ -12,6 +12,7 @@ import AssetDatabase from './modules/AssetDatabase';
 import AudioHub from './modules/AudioHub';
 import InteractiveMap from './modules/InteractiveMap';
 import IntelSurveillance from './modules/IntelSurveillance';
+import CentralIntelligence from './modules/CentralIntelligence';
 
 function App() {
   return (
@@ -20,20 +21,15 @@ function App() {
         <VhsOverlay />
 
         {/* Navigation Header */}
-        <header className="sticky top-0 z-30 backdrop-blur-md border-b border-charcoal/10 bg-linen/80 px-6 py-4">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <header className="sticky top-0 z-30 backdrop-blur-md border-b border-charcoal/10 bg-linen/80 p-0">
+          <div className="flex justify-between items-center px-6 py-0">
             <div className="flex items-center gap-4">
               <VLogo />
-              <div className="hidden md:block">
-                <h1 className="text-xl font-header italic font-extrabold tracking-tighter leading-none text-flamingo">
-                  VICEBOARD
-                </h1>
-              </div>
             </div>
 
             <nav className="flex items-center gap-6">
               <AudioHub />
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-flamingo/30 text-flamingo/80 bg-flamingo/5 font-mono text-[10px] font-bold tracking-widest">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-none border border-flamingo/30 text-flamingo/80 bg-flamingo/5 font-mono text-[10px] font-bold tracking-widest">
                 <Tv size={14} className="animate-pulse" />
                 VHS FEED ACTIVE
               </div>
@@ -50,6 +46,11 @@ function App() {
               <h2 className="text-xs font-mono uppercase tracking-[0.4em]">Operations Center</h2>
             </div>
             <Dashboard />
+          </section>
+
+          {/* Central Intelligence Section */}
+          <section id="central-intel" className="scroll-mt-24">
+            <CentralIntelligence />
           </section>
 
           {/* Intel Surveillance Section */}

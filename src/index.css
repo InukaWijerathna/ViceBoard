@@ -49,7 +49,7 @@
   }
 
   .glass-card {
-    @apply backdrop-blur-md rounded-2xl transition-all duration-500 overflow-hidden bg-white/60 border-charcoal/5;
+    @apply backdrop-blur-md rounded-none transition-all duration-500 overflow-hidden bg-white/60 border-charcoal/5;
   }
 
   .neon-text-flamingo {

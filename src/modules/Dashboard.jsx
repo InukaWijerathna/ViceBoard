@@ -1,24 +1,31 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Sun, Droplets, Clock, Satellite, RefreshCw, ChevronDown } from 'lucide-react';
+import { Sun, Droplets, Clock, Satellite, RefreshCw, ChevronDown, Search, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import useStore from '../store/useStore';
 
-const MIAMI_AREAS = [
-  { id: 'sth-beach', name: 'SOUTH BEACH', lat: 25.7907, lon: -80.1300 },
-  { id: 'brickell', name: 'BRICKELL', lat: 25.7617, lon: -80.1918 },
-  { id: 'wynwood', name: 'WYNWOOD', lat: 25.8042, lon: -80.1989 },
-  { id: 'ltl-havana', name: 'LITTLE HAVANA', lat: 25.7725, lon: -80.2144 },
-  { id: 'cnc-grove', name: 'COCONUT GROVE', lat: 25.7126, lon: -80.2431 },
-];
+const INITIAL_CITY = { 
+  id: 'miami', 
+  name: 'MIAMI', 
+  lat: 25.7617, 
+  lon: -80.1918, 
+  timezone: 'America/New_York',
+  country: 'United States'
+};
 
 const Dashboard = () => {
-  const [miamiTime, setMiamiTime] = useState(new Date());
-  const [selectedArea, setSelectedArea] = useState(MIAMI_AREAS[0]);
+  const [localTime, setLocalTime] = useState(new Date());
+  const { selectedArea, setSelectedArea, triggerIntelRefresh } = useStore();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [tempUnit, setTempUnit] = useState('F');
+  
   const [weather, setWeather] = useState({
     temp: '--',
     condition: 'Initializing...',
     humidity: '--',
-    location: MIAMI_AREAS[0].name,
+    location: selectedArea.name,
     loading: true,
     lastUpdate: null
   });
@@ -42,10 +49,10 @@ const Dashboard = () => {
       );
       const data = await response.json();
       const current = data.current_weather;
-      const humidity = data.hourly.relative_humidity_2m[0];
+      const humidity = data.hourly?.relative_humidity_2m?.[0] || '--';
 
       setWeather({
-        temp: Math.round(current.temperature),
+        temp: current.temperature,
         condition: mapWmoCode(current.weathercode),
         humidity: humidity,
         location: area.name,
@@ -58,10 +65,52 @@ const Dashboard = () => {
     }
   }, [selectedArea]);
 
+  // Geocoding Search Logic
+  useEffect(() => {
+    if (searchTerm.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+    const delayDebounceFn = setTimeout(async () => {
+      setIsSearching(true);
+      try {
+        const response = await fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${searchTerm}&count=10&language=en&format=json`
+        );
+        const data = await response.json();
+        if (data.results) {
+          setSuggestions(data.results.map(res => ({
+            id: res.id,
+            name: res.name.toUpperCase(),
+            lat: res.latitude,
+            lon: res.longitude,
+            timezone: res.timezone,
+            country: res.country,
+            admin1: res.admin1
+          })));
+          setIsDropdownOpen(true);
+        } else {
+          setSuggestions([]);
+        }
+      } catch (error) {
+        console.error("Search failed:", error);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
+
   useEffect(() => {
     const clockTimer = setInterval(() => {
-      const miami = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}));
-      setMiamiTime(miami);
+      try {
+        const local = new Date(new Date().toLocaleString("en-US", { timeZone: selectedArea.timezone }));
+        setLocalTime(local);
+      } catch (e) {
+        setLocalTime(new Date());
+      }
     }, 1000);
 
     fetchWeather(selectedArea);
@@ -75,21 +124,35 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-6">
-      {/* Area Selection Dropdown */}
-      <div className="relative">
-        <button
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="flex items-center gap-4 px-4 py-2.5 rounded-xl font-mono text-[10px] tracking-[0.3em] transition-all duration-300 border bg-white/40 text-charcoal/80 border-charcoal/10 hover:bg-white/60 hover:border-charcoal/20 min-w-[200px] group"
-        >
-          <span className="flex-1 text-left">{selectedArea.name}</span>
-          <ChevronDown 
-            size={14} 
-            className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180 text-flamingo' : 'text-charcoal/40 group-hover:text-charcoal/60'}`} 
+      <div className="relative max-w-md">
+        <div className="flex items-center gap-4 px-4 py-1 rounded-none border bg-white/40 border-charcoal/10 focus-within:border-flamingo/50 transition-all duration-300">
+          <Search size={14} className="text-charcoal/40" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setIsDropdownOpen(true);
+            }}
+            onFocus={() => {
+              if (suggestions.length > 0) setIsDropdownOpen(true);
+            }}
+            placeholder={selectedArea.name}
+            className="flex-1 bg-transparent py-2.5 outline-none font-mono text-[10px] tracking-[0.3em] text-charcoal placeholder:text-charcoal/80 uppercase"
           />
-        </button>
+          {isSearching ? (
+            <Loader2 size={14} className="animate-spin text-flamingo" />
+          ) : (
+            <ChevronDown 
+              size={14} 
+              className={`transition-transform duration-300 cursor-pointer ${isDropdownOpen ? 'rotate-180 text-flamingo' : 'text-charcoal/40'}`}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            />
+          )}
+        </div>
 
         <AnimatePresence>
-          {isDropdownOpen && (
+          {isDropdownOpen && suggestions.length > 0 && (
             <>
               {/* Backdrop for closing */}
               <div 
@@ -98,27 +161,33 @@ const Dashboard = () => {
               />
               
               <motion.div
-                initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="absolute top-full left-0 mt-2 w-full min-w-[200px] z-50 glass-card border border-charcoal/10 shadow-2xl overflow-hidden"
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                className="absolute top-full left-0 mt-1 w-full z-50 glass-card border border-charcoal/10 shadow-2xl overflow-hidden"
               >
-                <div className="flex flex-col py-1">
-                  {MIAMI_AREAS.map((area) => (
+                <div className="flex flex-col py-1 max-h-[300px] overflow-y-auto">
+                  {suggestions.map((city) => (
                     <button
-                      key={area.id}
+                      key={city.id}
                       onClick={() => {
-                        setSelectedArea(area);
+                        setSelectedArea(city);
+                        setSearchTerm('');
+                        setSuggestions([]);
                         setIsDropdownOpen(false);
                       }}
-                      className={`px-4 py-3 text-left font-mono text-[10px] tracking-widest transition-all duration-200 border-l-2 ${
-                        selectedArea.id === area.id
+                      className={`px-4 py-3 text-left font-mono text-[10px] tracking-widest transition-all duration-200 border-l-2 group ${
+                        selectedArea.id === city.id
                           ? 'bg-flamingo/10 text-flamingo border-flamingo'
                           : 'text-charcoal/60 border-transparent hover:bg-white/80 hover:text-charcoal hover:border-charcoal/20'
                       }`}
                     >
-                      {area.name}
+                      <div className="flex justify-between items-center">
+                        <span>{city.name}</span>
+                        <span className="text-[8px] opacity-40 group-hover:opacity-70 transition-opacity">
+                          {city.admin1 ? `${city.admin1}, ` : ''}{city.country}
+                        </span>
+                      </div>
                     </button>
                   ))}
                 </div>
@@ -145,7 +214,7 @@ const Dashboard = () => {
           
           <div className="mt-8">
             <span className="text-6xl font-mono font-bold tracking-tighter text-charcoal">
-              {miamiTime.toLocaleTimeString('en-US', { 
+              {localTime.toLocaleTimeString('en-US', { 
                 hour12: false, 
                 hour: '2-digit', 
                 minute: '2-digit', 
@@ -153,7 +222,7 @@ const Dashboard = () => {
               })}
             </span>
             <p className="text-[10px] font-mono mt-2 tracking-widest text-charcoal/60">
-              UTC-04:00 // STATUS: OPERATIONAL
+              {selectedArea.timezone} // STATUS: OPERATIONAL
             </p>
           </div>
         </motion.div>
@@ -167,22 +236,30 @@ const Dashboard = () => {
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-xs font-mono uppercase tracking-widest mb-1 text-charcoal/70">Atmospheric Downlink</h3>
-              <h2 className="text-2xl font-header italic font-extrabold text-charcoal uppercase">{selectedArea.name} DATA</h2>
+              <h2 className="text-2xl font-header italic font-extrabold text-charcoal uppercase"></h2>
             </div>
             <div className="flex items-center gap-4">
               <button 
-                onClick={() => fetchWeather(selectedArea)} 
-                className="btn-80s w-8 h-8 rounded-xl hover:rotate-180 transition-transform duration-500"
+                onClick={() => {
+                  fetchWeather(selectedArea);
+                  triggerIntelRefresh();
+                }} 
+                className={`btn-80s w-8 h-8 flex items-center justify-center rounded-none group hover:border-flamingo transition-colors duration-300 ${weather.loading ? 'border-flamingo bg-flamingo/5' : ''}`}
+                title="Sync Atmospheric Downlink"
               >
-                <Sun className="text-charcoal w-4 h-4" />
+                <RefreshCw className={`w-4 h-4 transition-all duration-500 ${weather.loading ? 'animate-spin text-flamingo' : 'text-charcoal group-hover:rotate-180 group-hover:text-flamingo'}`} />
               </button>
             </div>
           </div>
 
           <div className="mt-8 flex items-end justify-between">
             <div>
-              <span className="text-6xl font-mono font-bold tracking-tighter text-charcoal">
-                {weather.temp}°F
+              <span 
+                className="text-6xl font-mono font-bold tracking-tighter text-charcoal cursor-pointer hover:text-flamingo transition-colors"
+                onClick={() => setTempUnit(prev => prev === 'F' ? 'C' : 'F')}
+                title="Toggle Temperature Unit"
+              >
+                {weather.temp !== '--' ? Math.round(tempUnit === 'F' ? (weather.temp * 9/5 + 32) : weather.temp) : '--'}°{tempUnit}
               </span>
               <p className="text-[10px] font-mono mt-2 uppercase tracking-widest text-charcoal/80">
                 {weather.condition}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import YouTube from 'react-youtube';
 
 const AudioHub = () => {
@@ -74,14 +74,14 @@ const AudioHub = () => {
       {/* Inline Red Dot Control */}
       <button 
         onClick={toggleMute}
-        className={`w-4 h-4 rounded-full transition-all duration-500 relative cursor-pointer hover:scale-110 active:scale-95 border border-charcoal/10 ${
+        className={`w-4 h-4 rounded-none transition-all duration-500 relative cursor-pointer hover:scale-110 active:scale-95 border border-charcoal/10 ${
           isMuted 
             ? 'bg-zinc-800' 
             : 'bg-red-600 animate-pulse'
         }`}
         title={isMuted ? "Unmute Audio" : "Mute Audio"}
       >
-        {!isMuted && <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/20 to-transparent pointer-events-none" />}
+        {!isMuted && <div className="absolute inset-0 rounded-none bg-gradient-to-tr from-transparent via-white/20 to-transparent pointer-events-none" />}
       </button>
     </div>
   );

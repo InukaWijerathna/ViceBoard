@@ -42,7 +42,7 @@ const IntelSurveillance = () => {
               >
                 <div className="flex gap-4 mb-3">
                   {/* Surveillance Photo */}
-                  <div className="relative w-16 h-16 flex-shrink-0 bg-charcoal/10 rounded-lg overflow-hidden border border-charcoal/20">
+                  <div className="relative w-16 h-16 flex-shrink-0 bg-charcoal/10 rounded-none overflow-hidden border border-charcoal/20">
                     <img 
                       src={person.img} 
                       alt={person.name}
@@ -66,7 +66,7 @@ const IntelSurveillance = () => {
 
                 <div className="flex justify-between items-center pt-2 border-t border-charcoal/5">
                   <div className="flex items-center gap-2">
-                    <div className={`w-1.5 h-1.5 rounded-full ${
+                    <div className={`w-1.5 h-1.5 rounded-none ${
                       person.status === 'UNDERCOVER' ? 'bg-flamingo animate-pulse' : 
                       person.status === 'HQ' ? 'bg-cyan-400' : 'bg-green-400'
                     }`} />
@@ -94,7 +94,7 @@ const IntelSurveillance = () => {
                 className="glass-card p-4 flex items-center justify-between group hover:bg-white/50"
               >
                 <div className="flex items-center gap-4">
-                  <div className={`p-2 rounded-xl transition-colors ${
+                  <div className={`p-2 rounded-none transition-colors ${
                     contact.status === 'WANTED' ? 'bg-red-500/10 text-red-500' : 'bg-charcoal/5 text-charcoal/40'
                   }`}>
                     <User size={18} />
@@ -104,7 +104,7 @@ const IntelSurveillance = () => {
                     <p className="text-[9px] font-mono text-charcoal/50 uppercase">{contact.role}</p>
                   </div>
                 </div>
-                <div className={`px-2 py-1 rounded font-mono text-[9px] font-bold tracking-widest ${
+                <div className={`px-2 py-1 rounded-none font-mono text-[9px] font-bold tracking-widest ${
                   contact.status === 'WANTED' ? 'bg-red-500 text-white animate-pulse' : 'bg-charcoal/10 text-charcoal/60'
                 }`}>
                   {contact.status}
@@ -113,12 +113,12 @@ const IntelSurveillance = () => {
             ))}
             
             {/* System Status Mock */}
-            <div className="p-4 border border-dashed border-charcoal/10 rounded-2xl bg-charcoal/[0.02]">
+            <div className="p-4 border border-dashed border-charcoal/10 rounded-none bg-charcoal/[0.02]">
               <div className="flex items-center gap-2 mb-2 text-charcoal/30">
                 <Zap size={14} />
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em]">Live Surveillance Feed</span>
               </div>
-              <div className="h-1 bg-charcoal/5 rounded-full overflow-hidden">
+              <div className="h-1 bg-charcoal/5 rounded-none overflow-hidden">
                 <motion.div 
                   className="h-full bg-flamingo/30"
                   animate={{ x: ['-100%', '100%'] }}

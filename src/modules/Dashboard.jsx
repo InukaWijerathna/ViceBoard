@@ -2,6 +2,20 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Sun, Droplets, Clock, Satellite, RefreshCw, ChevronDown, Search, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useStore from '../store/useStore';
+import keySoundFile from '../assets/key_sound.mp3';
+
+let keyAudio;
+if (typeof window !== 'undefined') {
+  keyAudio = new Audio(keySoundFile);
+  keyAudio.preload = "auto";
+}
+
+const playKeySound = () => {
+  if (keyAudio) {
+    keyAudio.currentTime = 0;
+    keyAudio.play().catch(e => console.log('Audio playback prevented:', e));
+  }
+};
 
 const INITIAL_CITY = { 
   id: 'miami', 
@@ -130,26 +144,21 @@ const Dashboard = () => {
           <input
             type="text"
             value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setIsDropdownOpen(true);
-            }}
-            onFocus={() => {
-              if (suggestions.length > 0) setIsDropdownOpen(true);
-            }}
-            placeholder={selectedArea.name}
-            className="flex-1 bg-transparent py-2.5 outline-none font-mono text-[10px] tracking-[0.3em] text-charcoal placeholder:text-charcoal/80 uppercase"
-          />
-          {isSearching ? (
-            <Loader2 size={14} className="animate-spin text-flamingo" />
-          ) : (
-            <ChevronDown 
-              size={14} 
-              className={`transition-transform duration-300 cursor-pointer ${isDropdownOpen ? 'rotate-180 text-flamingo' : 'text-charcoal/40'}`}
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setIsDropdownOpen(true);
+                playKeySound();
+              }}
+              onFocus={() => {
+                if (suggestions.length > 0) setIsDropdownOpen(true);
+              }}
+              placeholder={selectedArea.name}
+              className="flex-1 bg-transparent py-2.5 outline-none font-mono text-[10px] tracking-[0.3em] text-charcoal placeholder:text-charcoal/80 uppercase"
             />
-          )}
-        </div>
+            {isSearching && (
+              <Loader2 size={14} className="animate-spin text-flamingo" />
+            )}
+          </div>
 
         <AnimatePresence>
           {isDropdownOpen && suggestions.length > 0 && (

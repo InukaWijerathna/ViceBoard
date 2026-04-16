@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Shield, TrendingUp, AlertTriangle, Box, Plus, Trash2 } from 'lucide-react';
 import useStore from '../store/useStore';
 import { getAssetUrl } from '../utils/paths';
@@ -87,7 +87,7 @@ const AssetDatabase = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <AnimatePresence>
           {assets.map((asset, index) => (
-            <motion.div
+            <Motion.div
               key={asset.id}
               layout
               initial={{ opacity: 0, scale: 0.9 }}
@@ -155,7 +155,7 @@ const AssetDatabase = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </Motion.div>
           ))}
         </AnimatePresence>
       </div>

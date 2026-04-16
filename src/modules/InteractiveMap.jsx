@@ -5,10 +5,6 @@ import { Camera } from 'lucide-react';
 import L from 'leaflet';
 
 // Fix for missing marker icons in production
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-
 // Use CDN for marker icons as a fail-safe for production
 const customIcon = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',

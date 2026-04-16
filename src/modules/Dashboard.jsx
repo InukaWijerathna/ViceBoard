@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Sun, Droplets, Clock, Satellite, RefreshCw, ChevronDown, Search, Loader2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import useStore from '../store/useStore';
 import keySoundFile from '../assets/key_sound.mp3';
 
@@ -122,7 +122,7 @@ const Dashboard = () => {
       try {
         const local = new Date(new Date().toLocaleString("en-US", { timeZone: selectedArea.timezone }));
         setLocalTime(local);
-      } catch (e) {
+      } catch {
         setLocalTime(new Date());
       }
     }, 1000);
@@ -169,7 +169,7 @@ const Dashboard = () => {
                 onClick={() => setIsDropdownOpen(false)} 
               />
               
-              <motion.div
+              <Motion.div
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
@@ -200,7 +200,7 @@ const Dashboard = () => {
                     </button>
                   ))}
                 </div>
-              </motion.div>
+              </Motion.div>
             </>
           )}
         </AnimatePresence>
@@ -208,7 +208,7 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Time & Operations Card */}
-        <motion.div 
+        <Motion.div 
           className="glass-card p-6 flex flex-col justify-between"
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -234,10 +234,10 @@ const Dashboard = () => {
               {selectedArea.timezone} // STATUS: OPERATIONAL
             </p>
           </div>
-        </motion.div>
+        </Motion.div>
 
         {/* Atmospheric Downlink Card */}
-        <motion.div 
+        <Motion.div 
           className="glass-card p-6 flex flex-col justify-between"
           initial={{ x: 20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -285,7 +285,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </Motion.div>
       </div>
     </div>
   );

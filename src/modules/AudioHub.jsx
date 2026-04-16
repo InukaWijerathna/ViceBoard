@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import YouTube from 'react-youtube';
 
 const AudioHub = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [player, setPlayer] = useState(null);
+  const fadeIntervalRef = useRef(null);
 
   const track = { 
     title: "JAN HAMMER - CROCKETT'S THEME", 
@@ -20,11 +21,16 @@ const AudioHub = () => {
     const totalSteps = 60;
     const targetVolume = 15;
     let step = 0;
-    const fadeInterval = setInterval(() => {
+    
+    if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+    fadeIntervalRef.current = setInterval(() => {
       step++;
       const vol = Math.round((targetVolume / totalSteps) * step);
       p.setVolume(vol);
-      if (step >= totalSteps) clearInterval(fadeInterval);
+      if (step >= totalSteps) {
+        if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+        fadeIntervalRef.current = null;
+      }
     }, 50);
   };
 
@@ -36,17 +42,30 @@ const AudioHub = () => {
         player.setVolume(0);
         const totalSteps = 20;
         let step = 0;
-        const fadeInterval = setInterval(() => {
+        
+        if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+        fadeIntervalRef.current = setInterval(() => {
           step++;
           player.setVolume(Math.round((15 / totalSteps) * step));
-          if (step >= totalSteps) clearInterval(fadeInterval);
+          if (step >= totalSteps) {
+            if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+            fadeIntervalRef.current = null;
+          }
         }, 50);
       } else {
+        if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+        fadeIntervalRef.current = null;
         player.mute();
       }
       setIsMuted(!isMuted);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+    };
+  }, []);
 
   const opts = {
     height: '1',

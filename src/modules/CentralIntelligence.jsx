@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Radio, ShieldAlert, History, Activity, Terminal, AlertTriangle } from 'lucide-react';
 import useStore from '../store/useStore';
 
@@ -18,11 +18,19 @@ const CentralIntelligence = () => {
   const [intelItems, setIntelItems] = useState([]);
   const [caseArchives, setCaseArchives] = useState([]);
   const scrollRef = useRef(null);
+  
+  const intervalRef = useRef(null);
+  const retryTimeoutRef = useRef(null);
+  const debounceTimeoutRef = useRef(null);
 
   useEffect(() => {
-    let interval;
     let isMounted = true;
-    let timeoutId;
+
+    const clearAllTimers = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (retryTimeoutRef.current) clearTimeout(retryTimeoutRef.current);
+      if (debounceTimeoutRef.current) clearTimeout(debounceTimeoutRef.current);
+    };
 
     const fetchRealIntel = async () => {
       try {
@@ -55,8 +63,12 @@ const CentralIntelligence = () => {
             priority: 'HIGH'
           }]);
           setCaseArchives([]);
-          // Auto-retry connection in 8 seconds
-          setTimeout(() => triggerIntelRefresh(), 8000);
+          
+          // Clear any existing retry timer before setting a new one
+          if (retryTimeoutRef.current) clearTimeout(retryTimeoutRef.current);
+          retryTimeoutRef.current = setTimeout(() => {
+            if (isMounted) triggerIntelRefresh();
+          }, 8000);
           return;
         }
 
@@ -94,14 +106,17 @@ const CentralIntelligence = () => {
         
         let currentIndex = offsetIndex + 5;
         
-        interval = setInterval(() => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(() => {
+          if (!isMounted) return;
+          
           if (currentIndex < liveHits.length) {
             setIntelItems(prev => {
               return [liveHits[currentIndex], ...prev.slice(0, 19)];
             });
             currentIndex++;
           } else {
-            clearInterval(interval);
+            if (intervalRef.current) clearInterval(intervalRef.current);
             // The intel stream array is exhausted. Automatically ping for a fresh payload!
             triggerIntelRefresh();
           }
@@ -119,23 +134,27 @@ const CentralIntelligence = () => {
             type: 'SYSTEM FAULT',
             priority: 'HIGH'
           }]);
-          // Auto-retry connection in 8 seconds
-          setTimeout(() => triggerIntelRefresh(), 8000);
+          
+          if (retryTimeoutRef.current) clearTimeout(retryTimeoutRef.current);
+          retryTimeoutRef.current = setTimeout(() => {
+            if (isMounted) triggerIntelRefresh();
+          }, 8000);
         }
       }
     };
 
-    // Debounce to prevent React StrictMode double-mounting from instantly rate-limiting the free API key
-    timeoutId = setTimeout(() => {
+    // Debounce to prevent React StrictMode double-mounting
+    clearAllTimers();
+    debounceTimeoutRef.current = setTimeout(() => {
       fetchRealIntel();
     }, 150);
 
     return () => {
       isMounted = false;
-      clearTimeout(timeoutId);
-      if (interval) clearInterval(interval);
+      clearAllTimers();
     };
-  }, [selectedArea, intelRefreshTrigger]);
+  }, [selectedArea, intelRefreshTrigger, triggerIntelRefresh]);
+
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -173,16 +192,16 @@ const CentralIntelligence = () => {
           >
             <AnimatePresence initial={false}>
               {intelItems.length === 0 && (
-                <motion.p 
+                <Motion.p 
                   initial={{ opacity: 0 }} 
                   animate={{ opacity: 1, textShadow: '0 0 10px #38bdf8' }} 
                   className="text-[10px] text-sky-400 font-mono italic p-2"
                 >
                   ESTABLISHING SECURE LINK...
-                </motion.p>
+                </Motion.p>
               )}
               {intelItems.map((item) => (
-                <motion.div
+                <Motion.div
                   key={item.id}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -206,7 +225,7 @@ const CentralIntelligence = () => {
                   <p className="text-[9px] text-white/40 mt-1 uppercase leading-relaxed">
                     {item.detail}
                   </p>
-                </motion.div>
+                </Motion.div>
               ))}
             </AnimatePresence>
           </div>
@@ -230,7 +249,7 @@ const CentralIntelligence = () => {
                 <span className="text-lg font-mono font-bold text-flamingo">HIGH</span>
               </div>
               <div className="h-1 bg-charcoal/5 rounded-none overflow-hidden">
-                <motion.div 
+                <Motion.div 
                   className="h-full bg-flamingo shadow-[0_0_10px_#FF007F]"
                   initial={{ width: 0 }}
                   animate={{ width: '85%' }}

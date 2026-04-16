@@ -1,5 +1,4 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { User, Shield, Info, Users, Zap } from 'lucide-react';
 import { getAssetUrl } from '../utils/paths';
 
@@ -33,7 +32,7 @@ const IntelSurveillance = () => {
           <h3 className="text-xl font-header italic font-extrabold text-charcoal">VICE PERSONNEL</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {PERSONNEL.map((person, idx) => (
-              <motion.div
+              <Motion.div
                 key={person.name}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -76,7 +75,7 @@ const IntelSurveillance = () => {
                   </div>
                   <Shield size={12} className="text-charcoal/20 group-hover:text-flamingo/40 transition-colors" />
                 </div>
-              </motion.div>
+              </Motion.div>
             ))}
           </div>
         </section>
@@ -86,7 +85,7 @@ const IntelSurveillance = () => {
           <h3 className="text-xl font-header italic font-extrabold text-charcoal">FIELD INTEL</h3>
           <div className="space-y-3">
             {CONTACTS.map((contact, idx) => (
-              <motion.div
+              <Motion.div
                 key={contact.name}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -109,7 +108,7 @@ const IntelSurveillance = () => {
                 }`}>
                   {contact.status}
                 </div>
-              </motion.div>
+              </Motion.div>
             ))}
             
             {/* System Status Mock */}
@@ -119,7 +118,7 @@ const IntelSurveillance = () => {
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em]">Live Surveillance Feed</span>
               </div>
               <div className="h-1 bg-charcoal/5 rounded-none overflow-hidden">
-                <motion.div 
+                <Motion.div 
                   className="h-full bg-flamingo/30"
                   animate={{ x: ['-100%', '100%'] }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}

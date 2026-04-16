@@ -1,10 +1,9 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import logoImg from '../assets/logo.png';
 
 const VLogo = () => {
   return (
-    <motion.div 
+    <Motion.div 
       className="w-24 h-24"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -15,7 +14,7 @@ const VLogo = () => {
         alt="VICE-BOARD" 
         className="w-full h-full object-contain"
       />
-    </motion.div>
+    </Motion.div>
   );
 };
 

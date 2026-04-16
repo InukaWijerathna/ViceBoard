@@ -1,7 +1,6 @@
 import React from 'react';
 import { Monitor, Tv } from 'lucide-react';
 
-import useStore from './store/useStore';
 import VLogo from './components/VLogo';
 import VhsOverlay from './components/VhsOverlay';
 import ClickSoundProvider from './components/ClickSoundProvider';

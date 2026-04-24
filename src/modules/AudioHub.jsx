@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import YouTube from 'react-youtube';
 
 const AudioHub = () => {
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [player, setPlayer] = useState(null);
   const fadeIntervalRef = useRef(null);
 
@@ -15,23 +15,8 @@ const AudioHub = () => {
     const p = event.target;
     setPlayer(p);
     p.setVolume(0);
+    p.mute();
     p.playVideo();
-
-    // Fade in from 0 → 15 over ~3 seconds (60 steps × 50ms)
-    const totalSteps = 60;
-    const targetVolume = 15;
-    let step = 0;
-    
-    if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
-    fadeIntervalRef.current = setInterval(() => {
-      step++;
-      const vol = Math.round((targetVolume / totalSteps) * step);
-      p.setVolume(vol);
-      if (step >= totalSteps) {
-        if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
-        fadeIntervalRef.current = null;
-      }
-    }, 50);
   };
 
   const toggleMute = () => {

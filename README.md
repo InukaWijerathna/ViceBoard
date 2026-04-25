@@ -1,4 +1,4 @@
-# Vice-Board // Retro-Intelligence Dashboard
+# Vice-Board - Retro-Intelligence Dashboard
 
 **Vice-Board** is a sophisticated **Retro-Intelligence Dashboard** that synthesizes real-world data telemetry with a high-fidelity 1980s aesthetic. It serves as a comprehensive global monitoring system for real-time clocks, meteorological patterns, and tactical intelligence feeds.
 

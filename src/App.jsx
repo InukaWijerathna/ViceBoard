@@ -69,7 +69,7 @@ function App() {
             <div className="space-y-3">
               <h4 className="text-sky-500 font-bold italic tracking-[0.2em] uppercase text-xs">How to Operate</h4>
               <p className="leading-relaxed">
-                Click on the current city name located in the upper Atmospheric Downlink module to search and shift the system to any worldwide jurisdiction. The local time, weather radar, and tactical Live Intel news stream will automatically re-calibrate to your chosen target location. Use the audio module in the header to control the ambient soundtrack.
+                Use the search field at the top of the Operations Center to shift the system to any worldwide jurisdiction. The local time, weather radar, and tactical Live Intel news stream will automatically re-calibrate to your chosen target location.
               </p>
             </div>
 

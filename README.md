@@ -8,13 +8,12 @@
 
 Designed as a location-aware terminal, the system recalibrates its entire UI based on user search queries.
 
-1. **Geospatial Jurisdiction:** Click the primary city label in the "Atmospheric Downlink" module to access the global search override.
+1. **Geospatial Jurisdiction:** Use the search field at the top of the Operations Center to access the global search override.
 2. **Data Calibration:** Entering a city name (e.g., *Hong Kong*, *Paris*, *New York*) triggers a cascading refresh across all intelligence modules.
 3. **Intelligence Stream:** The system provides specialized data on:
     - **Operations Time:** Synchronized UTC/Local timezone delta.
     - **Atmospheric Downlink:** Live meteorological telemetry (Temp, Humidity, WMO codes).
     - **Live Intel:** Real-world news events parsed into tactical field intercepts.
-    - **Asset Database:** Simulated resource management for undercover operations.
 
 ---
 
@@ -25,13 +24,12 @@ Designed as a location-aware terminal, the system recalibrates its entire UI bas
 - **Guardian Open News API:** A specialized intelligence engine that autonomously polls for global news, scrubs metadata, and reformats headlines into field-ready "Intercepts" using regex-based sanitization.
 - **Asynchronous Loop Protocols:** Implements self-healing retry mechanisms and intelligent debouncing to maintain stable connections under API rate-limiting conditions.
 
-### 📼 Visual & Sound Engineering
+### 📼 Visual Engineering
 - **CRT & VHS Simulation:** A deeply layered CSS engine using pseudo-elements to create scanline overlays, grain distortion, and a persistent "analog" glow.
 - **Glassmorphism 2.0:** High-blur backdrop filters matched with ultra-thin borders and varying opacity levels to simulate backlit acrylic terminal displays.
-- **Audio Sensory Feedback:** 
+- **Audio Sensory Feedback:**
     - **Low-Latency Interactions:** High-frequency click sounds for interface navigation.
     - **Typewriter Engine:** Specialized `key_sound.mp3` triggers for search bar inputs.
-    - **YouTube Hub:** Integrates the **YouTube IFrame Player API** for a seamless, volume-controlled ambient soundtrack with custom fade-in/fade-out logic.
 
 ### 🧬 Logical Framework
 - **State Management:** Powered by **Zustand**, providing a lightweight but rigid reactive core for cross-module synchronization (location changes, refresh triggers).

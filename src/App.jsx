@@ -7,10 +7,7 @@ import ClickSoundProvider from './components/ClickSoundProvider';
 
 // Modules
 import Dashboard from './modules/Dashboard';
-import AssetDatabase from './modules/AssetDatabase';
-import AudioHub from './modules/AudioHub';
 import InteractiveMap from './modules/InteractiveMap';
-import IntelSurveillance from './modules/IntelSurveillance';
 import CentralIntelligence from './modules/CentralIntelligence';
 
 function App() {
@@ -27,7 +24,6 @@ function App() {
             </div>
 
             <nav className="flex items-center gap-6">
-              <AudioHub />
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-none border border-flamingo/30 text-flamingo/80 bg-flamingo/5 font-mono text-[10px] font-bold tracking-widest">
                 <Tv size={14} className="animate-pulse" />
                 VHS FEED ACTIVE
@@ -52,20 +48,12 @@ function App() {
             <CentralIntelligence />
           </section>
 
-          {/* Intel Surveillance Section */}
-          <section id="intel" className="scroll-mt-24">
-            <IntelSurveillance />
-          </section>
-
           {/* Map Section */}
           <section id="map" className="scroll-mt-24">
             <InteractiveMap />
           </section>
 
-          {/* Asset Section */}
-          <section id="assets" className="scroll-mt-24">
-            <AssetDatabase />
-          </section>
+
         </main>
 
         {/* Footer */}
